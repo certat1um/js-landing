@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       tabContent.forEach((item) => {
          item.classList.add('hide');
+         item.classList.remove('show');
       });
    }
 
@@ -28,7 +29,6 @@ window.addEventListener('DOMContentLoaded', () => {
       const target = event.target;
       
       if (target && target.classList.contains('tabheader__item')) {
-         // console.dir(target)
          tabs.forEach((item, i) => {
             if (item == target) {
                hideTabsContent();
@@ -43,17 +43,39 @@ window.addEventListener('DOMContentLoaded', () => {
    const modalTrigger = document.querySelectorAll('[data-modal]'),
          modal = document.querySelector('.modal'),
          modalClose = document.querySelector('[data-close]');
+   // Modal timer
+   const modalTimerId = setTimeout(showModal, 5000);
    
-   // show
+   // show function
+   function showModal() {
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      clearTimeout(modalTimerId);
+   }
+
+   // show by click
    modalTrigger.forEach((item) => {
-      item.addEventListener('click', () => {
-         modal.classList.add('show');
-         document.body.style.overflow = 'hidden';
-      });
+      item.addEventListener('click', showModal);
    });
 
+   // show by scroll
+   function showModalByScroll() {
+      if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+         showModal();
+         window.removeEventListener('scroll', showModalByScroll);
+      }
+   }
 
-   // hide
+   window.addEventListener('scroll', showModalByScroll);
+
+
+   // hide function
+   function closeModal() {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+   }
+
+   // hide by click
    modalClose.addEventListener('click', closeModal);
 
    // hide by clicking outside modal-content window
@@ -70,8 +92,5 @@ window.addEventListener('DOMContentLoaded', () => {
       }
    });
 
-   function closeModal() {
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
-   }
+
 });
