@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
 
+   // Tabs
    const tabContent = document.querySelectorAll('.tabcontent'),
          tabList = document.querySelector('.tabheader__items'),
          tabs = document.querySelectorAll('.tabheader__item');
@@ -37,5 +38,40 @@ window.addEventListener('DOMContentLoaded', () => {
       }
    })
 
+
+   // Modal
+   const modalTrigger = document.querySelectorAll('[data-modal]'),
+         modal = document.querySelector('.modal'),
+         modalClose = document.querySelector('[data-close]');
    
+   // show
+   modalTrigger.forEach((item) => {
+      item.addEventListener('click', () => {
+         modal.classList.add('show');
+         document.body.style.overflow = 'hidden';
+      });
+   });
+
+
+   // hide
+   modalClose.addEventListener('click', closeModal);
+
+   // hide by clicking outside modal-content window
+   modal.addEventListener('click', (e) => {
+      if(e.target === modal) {
+         closeModal();
+      }
+   });
+
+   // hide by clicking Escape keyword
+   document.addEventListener('keydown', (e) => {
+      if(e.code === 'Escape') {
+         closeModal();
+      }
+   });
+
+   function closeModal() {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+   }
 });
