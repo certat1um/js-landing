@@ -1,1 +1,1 @@
-## simple tabs--offer
+## simple landing web-page with js features like (...)
