@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', () => {
          modal = document.querySelector('.modal'),
          modalClose = document.querySelector('[data-close]');
    // Modal timer
-   const modalTimerId = setTimeout(showModal, 5000);
+   // const modalTimerId = setTimeout(showModal, 5000);
    
    // show function
    function showModal() {
@@ -93,4 +93,67 @@ window.addEventListener('DOMContentLoaded', () => {
    });
 
 
+   // Cards using Class
+   class CardItem {
+      constructor(img_scr, img_alt, title, descr, price, parentSelector) {
+         this.img_scr = img_scr;
+         this.img_alt = img_alt;
+         this.title = title;
+         this.descr = descr;
+
+         this.price = price;
+         this.transfer = 27;
+         this.changeToUAH();
+
+         this.parent = document.querySelector(parentSelector);
+      }
+
+      changeToUAH() {
+         this.price = this.price * this.transfer;
+      }
+
+      render() {
+         const element = document.createElement('div');
+         element.classList.add('menu__item');
+         element.innerHTML = `
+            <img src=${this.img_scr} alt=${this.img_alt}>
+            <h3 class="menu__item-subtitle">${this.title}</h3>
+            <div class="menu__item-descr">${this.descr}</div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                  <div class="menu__item-cost">Цена:</div>
+                  <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+            </div>
+         `;
+         this.parent.append(element);
+         console.log(element)
+      }
+   }
+
+   new CardItem(
+      'img/tabs/vegy.jpg',
+      'fitness',
+      'Меню "Фитнес"',
+      'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+      '3',
+      '.menu .container'
+   ).render();
+
+   new CardItem(
+      'img/tabs/elite.jpg',
+      'premium',
+      'Меню "Премиум"',
+      'В меню "Премиум" мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+      '10',
+      '.menu .container'
+   ).render();
+
+   new CardItem(
+      'img/tabs/post.jpg',
+      'chef',
+      'Меню "Шеф"',
+      'Меню "Шеф" - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+      '14',
+      '.menu .container'
+   ).render();
 });
