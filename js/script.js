@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
    });
 
 
-   // Cards using Class
+   // Cards using Class constructor
    class CardItem {
       constructor(img_scr, img_alt, title, descr, price, parentSelector) {
          this.img_scr = img_scr;
@@ -108,10 +108,12 @@ window.addEventListener('DOMContentLoaded', () => {
          this.parent = document.querySelector(parentSelector);
       }
 
+      // from US to UAH
       changeToUAH() {
          this.price = this.price * this.transfer;
       }
 
+      // add a ready card to the page
       render() {
          const element = document.createElement('div');
          element.classList.add('menu__item');
@@ -130,6 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
    }
 
+   // cards info
    new CardItem(
       'img/tabs/vegy.jpg',
       'fitness',

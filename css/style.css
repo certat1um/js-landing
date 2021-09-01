@@ -437,7 +437,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px
+    padding: 10px 20px;
 }
 .menu__item-price span {
     font-size: 24px;
