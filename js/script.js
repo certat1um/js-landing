@@ -95,11 +95,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
    // Cards using Class constructor
    class CardItem {
-      constructor(img_scr, img_alt, title, descr, price, parentSelector) {
+      constructor(img_scr, img_alt, title, descr, price, parentSelector, ...classes) {
+         // cards info
          this.img_scr = img_scr;
          this.img_alt = img_alt;
          this.title = title;
          this.descr = descr;
+         this.classes = classes; // is a massive with css classes that could be used for cards containers
 
          this.price = price;
          this.transfer = 27;
@@ -116,7 +118,12 @@ window.addEventListener('DOMContentLoaded', () => {
       // add a ready card to the page
       render() {
          const element = document.createElement('div');
-         element.classList.add('menu__item');
+         if(this.classes.length === 0) {
+            element.classList.add('menu__item');
+         } else {
+            this.classes.forEach(ClassName => element.classList.add(ClassName));
+         }
+         
          element.innerHTML = `
             <img src=${this.img_scr} alt=${this.img_alt}>
             <h3 class="menu__item-subtitle">${this.title}</h3>
@@ -128,7 +135,6 @@ window.addEventListener('DOMContentLoaded', () => {
             </div>
          `;
          this.parent.append(element);
-         console.log(element)
       }
    }
 
@@ -139,7 +145,9 @@ window.addEventListener('DOMContentLoaded', () => {
       'Меню "Фитнес"',
       'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
       '3',
-      '.menu .container'
+      '.menu .container',
+      'menu__item',
+      'test' // test css class
    ).render();
 
    new CardItem(
